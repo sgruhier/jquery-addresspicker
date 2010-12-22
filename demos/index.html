@@ -14,33 +14,48 @@
 	$(function() {
 		var addresspicker = $( "#addresspicker" ).addresspicker();
 		var addresspickerMap = $( "#addresspicker_map" ).addresspicker({
-		  withMap: true,
-		  mapBeforeElement: $( "#addresspicker_map" ).parent(),
-		  latElement: $('#lat'),
-		  lngElement: $('#lng')
+		  elements: {
+		    map: "#map",
+		    lat: "#lat",
+		    lng: "#lng"
+		  }
 		});
 		var gmarker = addresspickerMap.addresspicker( "marker");
 		gmarker.setVisible(true);
+		addresspickerMap.addresspicker( "updatePosition");
+		
 	});
 	</script>
 </head>
 <body>
+  <a href="http://github.com/sgruhier/jquery-addresspicker"><img style="position: absolute; top: 0; left: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_left_green_007200.png" alt="Fork me on GitHub" /></a>
 
 <div class="demo">
   <h1>jquery-addresspicker demo (a jQuery UI widget)</h1>
   
   <h2>Default address picker, only autocomplete.</h2>
+  <p>
+    Default address picker. It's just a jQuery autocomplete filled by google map geocoder suggestions.<br/>
+    Just begin to type an address like: <em>Saint</em>
+  </p>
 	<div class='input'>
 	  <label>Address : </label><input id="addresspicker" />
   </div>
 
   <h2>Address picker, with instant display selection on map.</h2>
+  <p>
+    Same but the map on the left display selected value, event while you navigate in autocomplete suggestions.<br/>
+    Lat and Lng field are just for information, it should be set in hidden inputs.<br/><br/>
+    You can even adjust marker position on the map.<br/>
+  </p>
   <div>
   	<div class='input'>
 	    <label>Address :</label> <input id="addresspicker_map" />   <br/>
 			<label>Lat: </label>     <input id="lat" disabled=disabled> <br/>
 			<label>Lng: </label>     <input id="lng" disabled=disabled> <br/>
     </div>
+    <div id="map"></div>
+    <div id="legend">You can drag and drop the marker to the correct location</div>
   </div>
 </div><!-- End demo -->
 

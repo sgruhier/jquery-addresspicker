@@ -32,6 +32,10 @@ label {
   margin:4px 10px 0 0;
 }
 
+p {
+  float:left;
+  width: 100%;
+}
 .gist {
   margin-top: 10px;
   font-size: 12px;
@@ -51,13 +55,20 @@ label {
   padding-top: 0px !important;
 }
 
-.ui-addresspicker-map {
+#map {
   border: 1px solid #DDD; 
   width:300px;
   height: 300px;
   float:left;  
   margin: 0px 0 0 10px;
   -webkit-box-shadow: #AAA 0px 0px 15px;
+}
+
+#legend {
+  float: left;
+  font-size: 12px;
+  font-style: italic;
+  margin: 10px 0px 0px 430px;
 }
 
 .ui-menu .ui-menu-item a {

@@ -1,0 +1,10 @@
+= jquery-addresspicker
+
+jQuery UI widget to select an address.
+
+- Autocompletion made by jquery-autcomplete widgets and filled by google maps V3 geocoding suggests
+- Instant autocomplete suggestion on a map
+
+= Credit
+
+- Sébastien Gruhier (http://xilinus.com - http://v2.maptimize.com)
