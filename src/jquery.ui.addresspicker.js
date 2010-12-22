@@ -18,13 +18,16 @@ $.widget( "ui.addresspicker", {
 	options: {
 	  appendAddressString: "",
 		withMap: false,
-		mapOption: {
+		mapOptions: {
 		  zoom: 5, 
 		  center: new google.maps.LatLng(46, 2), 
 		  scrollwheel: false,
-		  mapTypeId: google.maps.MapTypeId.ROADMAP
+		  mapTypeId: google.maps.MapTypeId.ROADMAP,
 		},
-		mapBeforeElement: null
+		mapBeforeElement: null,
+	  draggableMarker: true,
+	  latElement: null,
+	  lngElement: null
 	},
 
 	_create: function() {
@@ -47,22 +50,26 @@ $.widget( "ui.addresspicker", {
 	},
 
 	destroy: function() {
-	  if (this.map) {
-	    this.map.element.remove();
+	  if (this.mapElement) {
+	    this.mapElement.remove();
 	  }
 		$.Widget.prototype.destroy.apply( this, arguments );
 	},
 
   _initMap: function() {
-    this.map = new google.maps.Map(this.mapElement[0], this.options.mapOption);
-    this.marker = new google.maps.Marker({position: this.options.mapOption.center, map:this.map, draggable: true});
-    google.maps.event.addListener(this.marker, 'dragend', $.proxy(this._updatePosition, this));
-    this.marker.setVisible(false);
+    this.gmap = new google.maps.Map(this.mapElement[0], this.options.mapOptions);
+    this.gmarker = new google.maps.Marker({
+      position: this.options.mapOptions.center, 
+      map:this.gmap, 
+      draggable: this.options.draggableMarker});
+    google.maps.event.addListener(this.gmarker, 'dragend', $.proxy(this._updatePosition, this));
+    this.gmarker.setVisible(false);
   },
   
   _updatePosition: function() {
     
   },
+  
   // Autocomplete source method: fill its suggests with google geocoder results
   _geocode: function(request, response) {
     var address = request.term;
@@ -77,7 +84,12 @@ $.widget( "ui.addresspicker", {
   },
   
   _selectAddress: function(event, ui) {
-    console.log(ui);
+    var address = ui.item;
+    this.gmarker.setPosition(address.geometry.location);
+    this.gmarker.setVisible(true);
+
+    this.gmap.fitBounds(address.geometry.viewport);
+    //updatePosition(address.geometry.location);
   },
   
 	_setOption: function( key, value ) {
@@ -87,6 +99,18 @@ $.widget( "ui.addresspicker", {
   // Check if google map V3 is loaded
 	_isGoogleMapLoaded: function() {
 	  return "google" in window && !!google.maps.Geocoder;
+	},
+	
+	marker: function() {
+		return this.gmarker;
+	},
+	
+	map: function() {
+	  return this.gmap;
+	},
+	
+	value: function( newValue ) {
+	  alert("okok")
 	}
 	
 });

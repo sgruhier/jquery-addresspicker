@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>jQuery UI Progressbar - Default functionality</title>
+	<title>jquery-addresspicker demo (a jQuery UI widget)</title>
 	<link rel="stylesheet" href="themes/base/jquery.ui.all.css">
 	<link rel="stylesheet" href="demo.css">
 	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
@@ -17,31 +17,30 @@
 		  withMap: true,
 		  mapBeforeElement: $( "#addresspicker_map" ).parent()
 		});
+		var gmarker = addresspickerMap.addresspicker( "marker");
+		gmarker.setVisible(true);
 	});
 	</script>
 </head>
 <body>
 
 <div class="demo">
-  <h1>jqueryui-addresspicker demo</h1>
+  <h1>jquery-addresspicker demo (a jQuery UI widget)</h1>
   
-  <h2>Default address picker, without map, only autocomplete.</h2>
+  <h2>Default address picker, only autocomplete.</h2>
 	<div class='input'>
-	  Address : <input id="addresspicker" />
+	  <label>Address : </label><input id="addresspicker" />
   </div>
 
-  <h2>Address picker, with map.</h2>
+  <h2>Address picker, with instant display selection on map.</h2>
   <div>
   	<div class='input'>
-	    Address : <input id="addresspicker_map" />  
+	    <label>Address :</label> <input id="addresspicker_map" />   <br/>
+			<label>Lat: </label>     <input id="lat" disabled=disabled> <br/>
+			<label>Lng: </label>     <input id="lng" disabled=disabled> <br/>
     </div>
   </div>
 </div><!-- End demo -->
-
-
-
-<div class="demo-description">
-</div><!-- End demo-description -->
 
 </body>
 </html>
