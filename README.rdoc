@@ -1,6 +1,9 @@
 = jquery-addresspicker
 
 jQuery UI widget to select an address.
+This widget has been develop for a specific need but feel free to use it or fork the repository
+
+= Features
 
 - Autocompletion made by jquery-autcomplete widgets and filled by google maps V3 geocoding suggests
 - Instant autocomplete suggestion on a map

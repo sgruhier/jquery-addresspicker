@@ -45,6 +45,10 @@ $.widget( "ui.addresspicker", {
     this._updatePosition(this.gmarker.getPosition());
   },
   
+  selected: function() {
+    return this.selectedResult;
+  },
+  
 	_create: function() {
 	  if (!this._isGoogleMapLoaded()) {
 	    $.error('Google map V3 script no loaded, add <script src="http://maps.google.com/maps/api/js?sensor=false"></script>')
@@ -52,7 +56,8 @@ $.widget( "ui.addresspicker", {
 	  this.geocoder = new google.maps.Geocoder();
 	  this.element.autocomplete({
 			source: $.proxy(this._geocode, this),  
-			focus:  $.proxy(this._selectAddress, this)
+			focus:  $.proxy(this._focusAddress, this),
+			select: $.proxy(this._selectAddress, this)
 		});
 		
 		this.lat      = $(this.options.elements.lat);
@@ -123,7 +128,7 @@ $.widget( "ui.addresspicker", {
     return false;
   },
   
-  _selectAddress: function(event, ui) {
+  _focusAddress: function(event, ui) {
     var address = ui.item;
     this.gmarker.setPosition(address.geometry.location);
     this.gmarker.setVisible(true);
@@ -136,6 +141,10 @@ $.widget( "ui.addresspicker", {
     if (this.country) {
       this.country.val(this._findInfo(address, 'country'));
     }
+  },
+  
+  _selectAddress: function(event, ui) {
+    this.selectedResult = ui.item;
   },
   
 	_setOption: function( key, value ) {
