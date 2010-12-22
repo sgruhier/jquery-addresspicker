@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>jQuery UI Progressbar - Default functionality</title>
+	<link rel="stylesheet" href="themes/base/jquery.ui.all.css">
+	<link rel="stylesheet" href="demo.css">
+	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+	<script src="../lib/jquery-1.4.4.min.js"></script>
+	<script src="../lib/jquery-ui-1.8.7.min.js"></script>
+	<script src="../src/jquery.ui.addresspicker.js"></script>
+	<script>
+	$(function() {
+		var addresspicker = $( "#addresspicker" ).addresspicker();
+		var addresspickerMap = $( "#addresspicker_map" ).addresspicker({
+		  withMap: true,
+		  mapBeforeElement: $( "#addresspicker_map" ).parent()
+		});
+	});
+	</script>
+</head>
+<body>
+
+<div class="demo">
+  <h1>jqueryui-addresspicker demo</h1>
+  
+  <h2>Default address picker, without map, only autocomplete.</h2>
+	<div class='input'>
+	  Address : <input id="addresspicker" />
+  </div>
+
+  <h2>Address picker, with map.</h2>
+  <div>
+  	<div class='input'>
+	    Address : <input id="addresspicker_map" />  
+    </div>
+  </div>
+</div><!-- End demo -->
+
+
+
+<div class="demo-description">
+</div><!-- End demo-description -->
+
+</body>
+</html>
