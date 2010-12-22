@@ -38,15 +38,17 @@ label {
 }
 
 .ui-autocomplete-input, .input input {
-  border: 1px solid #DDD; 
+  border: none; 
   font-size: 14px;
-  width: 150px;
+  width: 300px;
   height: 24px;
   margin-bottom: 5px;
+  padding-top: 2px;
 }
 
 .ui-autocomplete-input {
-  width: 300px !important;
+  border: 1px solid #DDD !important;
+  padding-top: 0px !important;
 }
 
 .ui-addresspicker-map {

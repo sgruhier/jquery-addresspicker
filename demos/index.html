@@ -15,7 +15,9 @@
 		var addresspicker = $( "#addresspicker" ).addresspicker();
 		var addresspickerMap = $( "#addresspicker_map" ).addresspicker({
 		  withMap: true,
-		  mapBeforeElement: $( "#addresspicker_map" ).parent()
+		  mapBeforeElement: $( "#addresspicker_map" ).parent(),
+		  latElement: $('#lat'),
+		  lngElement: $('#lng')
 		});
 		var gmarker = addresspickerMap.addresspicker( "marker");
 		gmarker.setVisible(true);
