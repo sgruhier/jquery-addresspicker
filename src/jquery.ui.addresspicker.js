@@ -27,6 +27,8 @@ $.widget( "ui.addresspicker", {
 		  map: false,
 		  lat: false,
 		  lng: false,
+		  locality: false,
+		  country: false
 		},
 	  draggableMarker: true
 	},
@@ -50,12 +52,13 @@ $.widget( "ui.addresspicker", {
 	  this.geocoder = new google.maps.Geocoder();
 	  this.element.autocomplete({
 			source: $.proxy(this._geocode, this),  
-			change: $.proxy(this._selectAddress, this), 
 			focus:  $.proxy(this._selectAddress, this)
 		});
 		
-		this.lat = $(this.options.elements.lat);
-		this.lng = $(this.options.elements.lng);
+		this.lat      = $(this.options.elements.lat);
+		this.lng      = $(this.options.elements.lng);
+		this.locality = $(this.options.elements.locality);
+		this.country  = $(this.options.elements.country);
 
 		if (this.options.elements.map) {
 		  this.mapElement = $(this.options.elements.map);
@@ -86,10 +89,10 @@ $.widget( "ui.addresspicker", {
   
   _updatePosition: function(location) {
     if (this.lat) {
-      this.lat.val(location.lat())
+      this.lat.val(location.lat());
     }
     if (this.lng) {
-      this.lng.val(location.lng())
+      this.lng.val(location.lng());
     }
   },
   
@@ -99,15 +102,25 @@ $.widget( "ui.addresspicker", {
   
   // Autocomplete source method: fill its suggests with google geocoder results
   _geocode: function(request, response) {
-    var address = request.term;
+    var address = request.term, self = this;
     this.geocoder.geocode( { 'address': address + this.options.appendAddressString}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         for (var i = 0; i < results.length; i++) {
-          results[i].label =  results[i].formatted_address
+          results[i].label =  results[i].formatted_address;
         };
       } 
       response(results);
     })
+  },
+  
+  _findInfo: function(result, type) {
+    for (var i = 0; i < result.address_components.length; i++) {
+      var component = result.address_components[i];
+      if (component.types.indexOf(type) !=-1) {
+        return component.long_name;
+      }
+    }
+    return false;
   },
   
   _selectAddress: function(event, ui) {
@@ -117,6 +130,12 @@ $.widget( "ui.addresspicker", {
 
     this.gmap.fitBounds(address.geometry.viewport);
     this._updatePosition(address.geometry.location);
+    if (this.locality) {
+      this.locality.val(this._findInfo(address, 'locality'));
+    }
+    if (this.country) {
+      this.country.val(this._findInfo(address, 'country'));
+    }
   },
   
 	_setOption: function( key, value ) {
