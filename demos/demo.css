@@ -54,7 +54,8 @@ label {
   width:300px;
   height: 300px;
   float:left;  
-  margin: 2px 0 0 10px;
+  margin: 0px 0 0 10px;
+  -webkit-box-shadow: #AAA 0px 0px 15px;
 }
 
 .ui-menu .ui-menu-item a {
