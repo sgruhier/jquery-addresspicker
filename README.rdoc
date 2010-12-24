@@ -5,8 +5,8 @@ This widget has been develop for a specific need but feel free to use it or fork
 
 = Features
 
-- Autocompletion made by jquery-autcomplete widgets and filled by google maps V3 geocoding suggests
-- Instant autocomplete suggestion on a map
+- Autocompletion is maiden with jquery-autcomplete widget and filled by google maps V3 geocoding suggests.
+- Instant display suggestion on a map
 
 = Credit
 
