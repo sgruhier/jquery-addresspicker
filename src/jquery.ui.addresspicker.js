@@ -21,7 +21,7 @@ $.widget( "ui.addresspicker", {
 		  zoom: 5, 
 		  center: new google.maps.LatLng(46, 2), 
 		  scrollwheel: false,
-		  mapTypeId: google.maps.MapTypeId.ROADMAP,
+		  mapTypeId: google.maps.MapTypeId.ROADMAP
 		},
 		elements: {
 		  map: false,
@@ -110,7 +110,7 @@ $.widget( "ui.addresspicker", {
         };
       } 
       response(results);
-    })
+    });
   },
   
   _findInfo: function(result, type) {
