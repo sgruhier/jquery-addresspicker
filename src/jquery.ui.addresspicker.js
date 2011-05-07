@@ -21,7 +21,7 @@ $.widget( "ui.addresspicker", {
 		  zoom: 5, 
 		  center: new google.maps.LatLng(46, 2), 
 		  scrollwheel: false,
-		  mapTypeId: google.maps.MapTypeId.ROADMAP,
+		  mapTypeId: google.maps.MapTypeId.ROADMAP
 		},
 		elements: {
 		  map: false,
@@ -153,5 +153,18 @@ $.widget( "ui.addresspicker", {
 $.extend( $.ui.addresspicker, {
 	version: "@VERSION"
 });
+
+
+// make IE think it doesn't suck
+if(!Array.indexOf){
+	Array.prototype.indexOf = function(obj){
+		for(var i=0; i<this.length; i++){
+			if(this[i]==obj){
+				return i;
+			}
+		}
+		return -1;
+	}
+}
 
 })( jQuery );
