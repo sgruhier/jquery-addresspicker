@@ -27,7 +27,7 @@ code {
 }
 
 label {
-  width: 100px;
+  width: 200px;
   float:left;
   text-align:right;
   margin:4px 10px 0 0;
@@ -45,7 +45,7 @@ p {
 .ui-autocomplete-input, .input input {
   border: none; 
   font-size: 14px;
-  width: 300px;
+  width: 320px;
   height: 24px;
   margin-bottom: 5px;
   padding-top: 2px;

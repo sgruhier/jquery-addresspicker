@@ -19,8 +19,13 @@
 		    map:      "#map",
 		    lat:      "#lat",
 		    lng:      "#lng",
+		    country:  '#country',
 		    locality: '#locality',
-		    country:  '#country'
+		    administrativeAreaLevel1: '#administrative_area_level_1',
+		    administrativeAreaLevel2: '#administrative_area_level_2',
+		    postalCode: '#postal_code',
+		    streetNumber: '#street_number',
+		    route: '#route'
 		  }
 		});
 		var gmarker = addresspickerMap.addresspicker( "marker");
@@ -54,8 +59,13 @@
   <div>
   	<div class='input'>
 	    <label>Address : </label> <input id="addresspicker_map" />   <br/>
-			<label>Locality: </label> <input id="locality" disabled=disabled> <br/>
 			<label>Country:  </label> <input id="country" disabled=disabled> <br/>
+			<label>Locality: </label> <input id="locality" disabled=disabled> <br/>
+			<label>Administrative Area Level 1: </label> <input id="administrative_area_level_1" disabled=disabled> <br/>
+			<label>Administrative Area Level 2: </label> <input id="administrative_area_level_2" disabled=disabled> <br/>
+			<label>Postal Code: </label> <input id="postal_code" disabled=disabled> <br/>
+			<label>Street Number: </label> <input id="street_number" disabled=disabled> <br/>
+			<label>Route: </label> <input id="route" disabled=disabled> <br/>
 			<label>Lat:      </label> <input id="lat" disabled=disabled> <br/>
 			<label>Lng:      </label> <input id="lng" disabled=disabled> <br/>
     </div>

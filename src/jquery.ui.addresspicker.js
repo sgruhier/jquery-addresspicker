@@ -29,8 +29,13 @@
             map: false,
             lat: false,
             lng: false,
+            country: false,
             locality: false,
-            country: false
+            administrativeAreaLevel1: false,
+            administrativeAreaLevel2: false,
+            postalCode: false,
+            streetNumber: false,
+            route: false
         }
     },
 
@@ -66,8 +71,14 @@
       
       this.lat      = $(this.options.elements.lat);
       this.lng      = $(this.options.elements.lng);
-      this.locality = $(this.options.elements.locality);
       this.country  = $(this.options.elements.country);
+      this.locality = $(this.options.elements.locality);
+      this.administrativeAreaLevel1 = $(this.options.elements.administrativeAreaLevel1);
+      this.administrativeAreaLevel2 = $(this.options.elements.administrativeAreaLevel2);
+      this.postalCode = $(this.options.elements.postalCode);
+      this.streetNumber = $(this.options.elements.streetNumber);
+      this.route = $(this.options.elements.route);
+
       if (this.options.elements.map) {
         this.mapElement = $(this.options.elements.map);
         this._initMap();
@@ -141,11 +152,26 @@
       }
       this._updatePosition(address.geometry.location);
       
+      if (this.country) {
+        this.country.val(this._findInfo(address, 'country'));
+      }
       if (this.locality) {
         this.locality.val(this._findInfo(address, 'locality'));
       }
-      if (this.country) {
-        this.country.val(this._findInfo(address, 'country'));
+      if (this.administrativeAreaLevel1) {
+        this.administrativeAreaLevel1.val(this._findInfo(address, 'administrative_area_level_1'));
+      }
+      if (this.administrativeAreaLevel2) {
+        this.administrativeAreaLevel2.val(this._findInfo(address, 'administrative_area_level_2'));
+      }
+      if (this.postalCode) {
+        this.postalCode.val(this._findInfo(address, 'postal_code'));
+      }
+      if (this.streetNumber) {
+        this.streetNumber.val(this._findInfo(address, 'street_number'));
+      }
+      if (this.route) {
+        this.route.val(this._findInfo(address, 'route'));
       }
     },
     
