@@ -30,7 +30,8 @@
             lat: false,
             lng: false,
             locality: false,
-            country: false
+            country: false,
+            type: false
         }
     },
 
@@ -68,6 +69,7 @@
       this.lng      = $(this.options.elements.lng);
       this.locality = $(this.options.elements.locality);
       this.country  = $(this.options.elements.country);
+      this.type     = $(this.options.elements.type);
       if (this.options.elements.map) {
         this.mapElement = $(this.options.elements.map);
         this._initMap();
@@ -146,6 +148,9 @@
       }
       if (this.country) {
         this.country.val(this._findInfo(address, 'country'));
+      }
+      if (this.type) {
+        this.type.val(address.types[0]);
       }
     },
     
