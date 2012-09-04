@@ -16,18 +16,20 @@
 		var addresspickerMap = $( "#addresspicker_map" ).addresspicker({
 			regionBias: "fr",
 		  elements: {
-		    map:      "#map",
-		    lat:      "#lat",
-		    lng:      "#lng",
-		    locality: '#locality',
-		    country:  '#country',
-        type:    '#type' 
+		    map:            "#map",
+		    lat:            "#lat",
+		    lng:            "#lng",
+		    locality:       '#locality',
+        country:        '#country',
+        route:          '#route',
+        street_number:  '#street_number',
+        type:           '#type'
 		  }
 		});
 		var gmarker = addresspickerMap.addresspicker( "marker");
 		gmarker.setVisible(true);
 		addresspickerMap.addresspicker( "updatePosition");
-		
+
 	});
 	</script>
 </head>
@@ -36,7 +38,7 @@
 
 <div class="demo">
   <h1>jquery-addresspicker demo (a jQuery UI widget)</h1>
-  
+
   <h2>Default address picker, only autocomplete.</h2>
   <p>
     Default address picker. It's just a jQuery autocomplete filled by google map geocoder suggestions.<br/>
@@ -55,7 +57,9 @@
   <div>
   	<div class='input'>
 	    <label>Address : </label> <input id="addresspicker_map" />   <br/>
-			<label>Locality: </label> <input id="locality" disabled=disabled> <br/>
+      <label>Route:    </label> <input id="route" disabled=disabled> <br/>
+      <label>Steet #:  </label> <input id="street_number" disabled=disabled> <br/>
+      <label>Locality: </label> <input id="locality" disabled=disabled> <br/>
 			<label>Country:  </label> <input id="country" disabled=disabled> <br/>
 			<label>Lat:      </label> <input id="lat" disabled=disabled> <br/>
 			<label>Lng:      </label> <input id="lng" disabled=disabled> <br/>
