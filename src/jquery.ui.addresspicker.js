@@ -30,8 +30,12 @@
             lat: false,
             lng: false,
             locality: false,
-            country: false,
+						administrative_area_level_2: false,
+            administrative_area_level_1: false,
+						country: false,
+						postal_code: false,
             type: false
+
         }
     },
 
@@ -68,7 +72,10 @@
       this.lat      = $(this.options.elements.lat);
       this.lng      = $(this.options.elements.lng);
       this.locality = $(this.options.elements.locality);
+			this.administrative_area_level_2 = $(this.options.elements.administrative_area_level_2);
+			this.administrative_area_level_1 = $(this.options.elements.administrative_area_level_1);
       this.country  = $(this.options.elements.country);
+			this.postal_code = $(this.options.elements.postal_code);
       this.type     = $(this.options.elements.type);
       if (this.options.elements.map) {
         this.mapElement = $(this.options.elements.map);
@@ -146,9 +153,18 @@
       if (this.locality) {
         this.locality.val(this._findInfo(address, 'locality'));
       }
+      if (this.administrative_area_level_2) {
+        this.administrative_area_level_2.val(this._findInfo(address, 'administrative_area_level_2'));
+      }
+      if (this.administrative_area_level_1) {
+        this.administrative_area_level_1.val(this._findInfo(address, 'administrative_area_level_1'));
+      }
       if (this.country) {
         this.country.val(this._findInfo(address, 'country'));
       }
+      if (this.postal_code) {
+        this.postal_code.val(this._findInfo(address, 'postal_code'));
+      }			
       if (this.type) {
         this.type.val(address.types[0]);
       }
