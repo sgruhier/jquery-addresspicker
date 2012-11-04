@@ -106,10 +106,30 @@
       }
     },
     
-    _markerMoved: function() {
+    _markerMoved: function() { 
+
+      self = this;
+      
       this._updatePosition(this.gmarker.getPosition());
+      this._reverseGeocode(function(result){ 
+      	self._focusAddress(event, result);
+    	self.element.val(result.formatted_address);
+      });
+
     },
-    
+
+    _reverseGeocode: function(response) {
+    	 
+        this.geocoder.geocode({ 
+        	'latLng': new google.maps.LatLng(this.lat.val(), this.lng.val()) 
+        }, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {   
+            	response(results[0]);
+            }  
+        });
+    	
+    },
+
     // Autocomplete source method: fill its suggests with google geocoder results
     _geocode: function(request, response) {
         var address = request.term, self = this;
@@ -136,8 +156,8 @@
       return false;
     },
     
-    _focusAddress: function(event, ui) {
-      var address = ui.item;
+    _focusAddress: function(event, selectedAddress) {
+      var address = (selectedAddress.formatted_address) ? selectedAddress : selectedAddress.item;
       if (!address) {
         return;
       }
