@@ -6,12 +6,12 @@
  * http://jquery.org/license
  *
  * http://docs.jquery.com/UI/Progressbar
- *
- * Depends:
- *   jquery.ui.core.js
- *   jquery.ui.widget.js
- *   jquery.ui.autocomplete.js
  */
+// require to integrate with Ruby on Rails
+//= require jquery.ui.core
+//= require jquery.ui.widget
+//= require jquery.ui.autocomplete
+
 (function( $, undefined ) {
 
   $.widget( "ui.addresspicker", {
@@ -34,8 +34,8 @@
             administrative_area_level_1: false,
 						country: false,
 						postal_code: false,
-            type: false
-
+            type: false,
+            zoom: false
         }
     },
 
@@ -77,6 +77,8 @@
       this.country  = $(this.options.elements.country);
 			this.postal_code = $(this.options.elements.postal_code);
       this.type     = $(this.options.elements.type);
+      this.zoom     = $(this.options.elements.zoom);
+      
       if (this.options.elements.map) {
         this.mapElement = $(this.options.elements.map);
         this._initMap();
@@ -167,6 +169,9 @@
       }			
       if (this.type) {
         this.type.val(address.types[0]);
+      }
+      if (this.zoom) {
+        this.zoom.val(this.gmap.getZoom());
       }
     },
     
