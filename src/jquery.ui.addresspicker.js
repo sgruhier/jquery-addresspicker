@@ -19,6 +19,7 @@
         appendAddressString: "",
         draggableMarker: true,
         regionBias: null,
+        updateCallback: null,
         mapOptions: {
             zoom: 5, 
             center: new google.maps.LatLng(46, 2), 
@@ -172,6 +173,9 @@
     
     _selectAddress: function(event, ui) {
       this.selectedResult = ui.item;
+      if (this.options.updateCallback) {
+        this.options.updateCallback(this.selectedResult);
+      }
     }
   });
 
