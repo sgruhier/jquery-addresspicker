@@ -109,6 +109,7 @@
     
     _markerMoved: function() {
       this._updatePosition(this.gmarker.getPosition());
+      this._geocodePosition();
     },
     
     // Autocomplete source method: fill its suggests with google geocoder results
@@ -126,6 +127,43 @@
             response(results);
         })
     },
+    _geocodePosition : function geocodePosition() 
+	{
+		var self = this;
+	    this.geocoder.geocode
+	    ({
+			latLng: this.gmarker.getPosition()
+	    }, 
+		function(results, status) 
+		{
+		    if (status == google.maps.GeocoderStatus.OK) 
+		    {
+		        
+		        var address = results[0];
+				if (self.locality) {
+					self.locality.val(self._findInfo(address, 'locality'));
+				}
+				if (self.administrative_area_level_2) {
+					self.administrative_area_level_2.val(self._findInfo(address, 'administrative_area_level_2'));
+				}
+				if (self.administrative_area_level_1) {
+					self.administrative_area_level_1.val(self._findInfo(address, 'administrative_area_level_1'));
+				}
+				if (self.country) {
+					self.country.val(self._findInfo(address, 'country'));
+				}
+				if (self.postal_code) {
+					self.postal_code.val(self._findInfo(address, 'postal_code'));
+				}
+				if (self.type) {
+					self.type.val(address.types[0]);
+				} 
+			} 
+		    
+		}
+	    );
+	},
+
     
     _findInfo: function(result, type) {
       for (var i = 0; i < result.address_components.length; i++) {
