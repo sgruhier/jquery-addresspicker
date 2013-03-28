@@ -20,6 +20,7 @@
         draggableMarker: true,
         regionBias: null,
         updateCallback: null,
+        reverseGeocode: false,
         mapOptions: {
             zoom: 5, 
             center: new google.maps.LatLng(46, 2), 
@@ -30,6 +31,8 @@
             map: false,
             lat: false,
             lng: false,
+            street_number: false,
+            route: false,
             locality: false,
 						administrative_area_level_2: false,
             administrative_area_level_1: false,
@@ -72,6 +75,8 @@
       
       this.lat      = $(this.options.elements.lat);
       this.lng      = $(this.options.elements.lng);
+      this.street_number = $(this.options.elements.street_number);
+      this.route = $(this.options.elements.route);
       this.locality = $(this.options.elements.locality);
 			this.administrative_area_level_2 = $(this.options.elements.administrative_area_level_2);
 			this.administrative_area_level_1 = $(this.options.elements.administrative_area_level_1);
@@ -106,9 +111,58 @@
         this.lng.val(location.lng());
       }
     },
+
+    _addressParts: {street_number: null, route: null, locality: null, 
+                     administrative_area_level_2: null, administrative_area_level_1: null,
+                     country: null, postal_code:null, type: null},
+
+    _updateAddressParts: function(geocodeResult){
+
+      parsedResult = this._parseGeocodeResult(geocodeResult);
+
+      for (addressPart in this._addressParts){
+        if (this[addressPart]){
+          this[addressPart].val(parsedResult[addressPart]);
+        }
+      }
+    }, 
+
+    _updateAddressPartsViaReverseGeocode: function(location){
+      var latLng = new google.maps.LatLng(location.lat(), location.lng());
+
+      this.geocoder.geocode({'latLng': latLng}, $.proxy(function(results, status){
+          if (status == google.maps.GeocoderStatus.OK)
+
+            this._updateAddressParts(results[0]);
+            this.element.val(results[0].formatted_address);
+            this.selectedResult = results[0];
+
+            if (this.options.updateCallback) {
+              this.options.updateCallback(this.selectedResult, this._parseGeocodeResult(this.selectedResult));
+            }
+          }, this));
+    },
+
+    _parseGeocodeResult: function(geocodeResult){
+
+      var parsed = {lat: geocodeResult.geometry.location.lat(),
+        lng: geocodeResult.geometry.location.lng()};
+
+      for (var addressPart in this._addressParts){
+        parsed[addressPart] = this._findInfo(geocodeResult, addressPart);
+      }
+
+      parsed.type = geocodeResult.types[0];
+
+      return parsed;
+    },
     
     _markerMoved: function() {
       this._updatePosition(this.gmarker.getPosition());
+
+      if (this.options.reverseGeocode){
+        this._updateAddressPartsViaReverseGeocode(this.gmarker.getPosition());
+      }
     },
     
     // Autocomplete source method: fill its suggests with google geocoder results
@@ -149,32 +203,17 @@
 
         this.gmap.fitBounds(address.geometry.viewport);
       }
+
       this._updatePosition(address.geometry.location);
+
+      this._updateAddressParts(address);
       
-      if (this.locality) {
-        this.locality.val(this._findInfo(address, 'locality'));
-      }
-      if (this.administrative_area_level_2) {
-        this.administrative_area_level_2.val(this._findInfo(address, 'administrative_area_level_2'));
-      }
-      if (this.administrative_area_level_1) {
-        this.administrative_area_level_1.val(this._findInfo(address, 'administrative_area_level_1'));
-      }
-      if (this.country) {
-        this.country.val(this._findInfo(address, 'country'));
-      }
-      if (this.postal_code) {
-        this.postal_code.val(this._findInfo(address, 'postal_code'));
-      }			
-      if (this.type) {
-        this.type.val(address.types[0]);
-      }
     },
     
     _selectAddress: function(event, ui) {
       this.selectedResult = ui.item;
       if (this.options.updateCallback) {
-        this.options.updateCallback(this.selectedResult);
+        this.options.updateCallback(this.selectedResult, this._parseGeocodeResult(this.selectedResult));
       }
     }
   });

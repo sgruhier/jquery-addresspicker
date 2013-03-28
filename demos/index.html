@@ -15,10 +15,13 @@
 		var addresspicker = $( "#addresspicker" ).addresspicker();
 		var addresspickerMap = $( "#addresspicker_map" ).addresspicker({
 			regionBias: "fr",
+      updateCallback: showCallback,
 		  elements: {
 		    map:      "#map",
 		    lat:      "#lat",
 		    lng:      "#lng",
+		    street_number: '#street_number',
+		    route: '#route',
 		    locality: '#locality',
 		    administrative_area_level_2: '#administrative_area_level_2',
 		    administrative_area_level_1: '#administrative_area_level_1',
@@ -27,9 +30,18 @@
         type:    '#type' 
 		  }
 		});
+
 		var gmarker = addresspickerMap.addresspicker( "marker");
 		gmarker.setVisible(true);
 		addresspickerMap.addresspicker( "updatePosition");
+
+    $('#reverseGeocode').change(function(){ 
+      $("#addresspicker_map").addresspicker("option", "reverseGeocode", ($(this).val() === 'true'));
+    });
+
+    function showCallback(geocodeResult, parsedGeocodeResult){
+      $('#callback_result').text(JSON.stringify(parsedGeocodeResult, null, 4));
+    }
 		
 	});
 	</script>
@@ -55,8 +67,8 @@
     Lat and Lng fields are just for information, they should be hidden inputs.<br/><br/>
     You can even adjust marker position on the map.<br/>
   </p>
-  <div>
-  	<div class='input'>
+  <div class='clearfix'>
+  	<div class='input input-positioned'>
 	    <label>Address : </label> <input id="addresspicker_map" />   <br/>
 			<label>Locality: </label> <input id="locality" disabled=disabled> <br/>
 			<label>District: </label> <input id="administrative_area_level_2" disabled=disabled> <br/>
@@ -67,9 +79,24 @@
 			<label>Lng:      </label> <input id="lng" disabled=disabled> <br/>
       <label>Type:     </label> <input id="type" disabled=disabled /> <br/>
     </div>
-    <div id="map"></div>
-    <div id="legend">You can drag and drop the marker to the correct location</div>
+
+    <div class='map-wrapper'>
+      <label id="geo_label" for="reverseGeocode">Reverse Geocode after Marker Drag?</label>
+      <select id="reverseGeocode">
+        <option value="false" selected>No</option>
+        <option value="true">Yes</option>
+      </select><br/>
+
+      <div id="map"></div>
+      <div id="legend">You can drag and drop the marker to the correct location</div>
+    </div>
   </div>
+
+  <div class='input-positioned'>
+    <label>Callback: </label>
+    <textarea id='callback_result' rows="15"></textarea>
+  </div>
+
 </div><!-- End demo -->
 
 </body>
