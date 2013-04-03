@@ -172,7 +172,7 @@
             'address': address + this.options.appendAddressString,
             'region': this.options.regionBias
         }, function(results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
+            if (status == google.maps.GeocoderStatus.OK && results) {
                 for (var i = 0; i < results.length; i++) {
                     results[i].label =  results[i].formatted_address;
                 };
