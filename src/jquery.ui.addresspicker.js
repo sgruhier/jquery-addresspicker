@@ -21,6 +21,7 @@
         regionBias: null,
         updateCallback: null,
         reverseGeocode: false,
+        autocomplete: 'default',
         mapOptions: {
             zoom: 5, 
             center: new google.maps.LatLng(46, 2), 
@@ -65,13 +66,40 @@
       return this.selectedResult;
     },
     
+    _mapped: {},
+    
     _create: function() {
+      var self = this;
       this.geocoder = new google.maps.Geocoder();
-      this.element.autocomplete({
-        source: $.proxy(this._geocode, this),  
-        focus:  $.proxy(this._focusAddress, this),
-        select: $.proxy(this._selectAddress, this)
-      });
+      if (this.options.autocomplete === 'bootstrap') {
+          this.element.typeahead({
+            source: function(query, process) {
+                self._mapped = {};
+                var response = function(results) {
+                    var labels = [];
+                    for (var i = 0; i < results.length; i++) {
+                        self._mapped[results[i].label] = results[i];
+                        labels.push(results[i].label);
+                    };
+                    process(labels);
+                }
+                var request = {term: query};
+                self._geocode(request, response);
+            },
+            updater: function(item) {
+                var ui = {item: self._mapped[item]}
+                self._focusAddress(null, ui);
+                self._selectAddress(null, ui);
+                return item;
+            }
+          }); 
+      } else {      
+          this.element.autocomplete({
+            source: $.proxy(this._geocode, this),  
+            focus:  $.proxy(this._focusAddress, this),
+            select: $.proxy(this._selectAddress, this)
+          });
+      }
       
       this.lat      = $(this.options.elements.lat);
       this.lng      = $(this.options.elements.lng);
