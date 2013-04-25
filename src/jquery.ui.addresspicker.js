@@ -19,6 +19,7 @@
         appendAddressString: "",
         draggableMarker: true,
         regionBias: null,
+        componentsFilter:'',
         updateCallback: null,
         reverseGeocode: false,
         mapOptions: {
@@ -185,7 +186,8 @@
         this.geocoder.geocode(
         	{
             'address': address + this.options.appendAddressString,
-            'region': this.options.regionBias
+            'region': this.options.regionBias,
+            'components': this.options.componentsFilter
         	}, 
 	        function(results, status) 
 	        {
