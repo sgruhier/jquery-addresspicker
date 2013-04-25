@@ -2,12 +2,11 @@ This fork make use of the direct Google API instead of their provided class, whi
 
 It can provide Components filtering, so you can restrict the code to a given area. See https://developers.google.com/maps/documentation/geocoding/#ComponentFiltering
 
-= Usage :
-
-$( 'input[name="address"]' ).addresspicker({
-...,
-componentsFilter: 'country:BE',
-});
+Usage :
+  $( 'input[name="address"]' ).addresspicker({
+    ...,
+    componentsFilter: 'country:BE',
+  });
 
 = jquery-addresspicker
 
@@ -27,3 +26,4 @@ You can see a live demo here: http://xilinus.com/jquery-addresspicker/demos/inde
 
 - Sébastien Gruhier - @sgruhier[http://twitter.com/sgruhier] - (http://xilinus.com - maptimize.com[http://v2.maptimize.com])
  
+
