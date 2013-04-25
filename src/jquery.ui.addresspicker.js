@@ -117,11 +117,11 @@
     },
     
     _updatePosition: function(location) {
-      if (this.lat) {
-        this.lat.val(location.lat());
+      if (this.lat && location.lat) {
+        this.lat.val(location.lat);
       }
-      if (this.lng) {
-        this.lng.val(location.lng());
+      if (this.lng && location.lng) {
+        this.lng.val(location.lng);
       }
     },
 
@@ -141,7 +141,8 @@
     },
 
     _updateAddressPartsViaReverseGeocode: function(location){
-      var latLng = new google.maps.LatLng(location.lat(), location.lng());
+    	console.log('_updateAddressPartsViaReverseGeocode');
+      var latLng = new google.maps.LatLng(location.lat, location.lng);
 
       this.geocoder.geocode({
       	'latLng': latLng},
@@ -159,9 +160,8 @@
     },
 
     _parseGeocodeResult: function(geocodeResult){
-
-      var parsed = {lat: geocodeResult.geometry.location.lat(),
-        lng: geocodeResult.geometry.location.lng()};
+      var parsed = {lat: geocodeResult.geometry.location.lat,
+        lng: geocodeResult.geometry.location.lng};
 
       for (var addressPart in this._addressParts){
         parsed[addressPart] = this._findInfo(geocodeResult, addressPart);
