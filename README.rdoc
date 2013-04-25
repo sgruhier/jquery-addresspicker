@@ -2,6 +2,13 @@ This fork make use of the direct Google API instead of their provided class, whi
 
 It can provide Components filtering, so you can restrict the code to a given area. See https://developers.google.com/maps/documentation/geocoding/#ComponentFiltering
 
+Usage :
+----------
+$( 'input[name="address"]' ).addresspicker({
+...,
+componentsFilter: 'country:BE',
+});
+
 = jquery-addresspicker
 
 jQuery UI widget for selecting an address.
