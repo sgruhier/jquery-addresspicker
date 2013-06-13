@@ -22,8 +22,8 @@
         updateCallback: null,
         reverseGeocode: false,
         mapOptions: {
-            zoom: 5, 
-            center: new google.maps.LatLng(46, 2), 
+            zoom: 5,
+            center: new google.maps.LatLng(46, 2),
             scrollwheel: false,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         },
@@ -40,13 +40,14 @@
 						postal_code: false,
             type: false
 
-        }
+        },
+        autocomplete: {}
     },
 
     marker: function() {
       return this.gmarker;
     },
-    
+
     map: function() {
       return this.gmap;
     },
@@ -54,25 +55,25 @@
     updatePosition: function() {
       this._updatePosition(this.gmarker.getPosition());
     },
-    
+
     reloadPosition: function() {
       this.gmarker.setVisible(true);
       this.gmarker.setPosition(new google.maps.LatLng(this.lat.val(), this.lng.val()));
       this.gmap.setCenter(this.gmarker.getPosition());
     },
-    
+
     selected: function() {
       return this.selectedResult;
     },
-    
+
     _create: function() {
       this.geocoder = new google.maps.Geocoder();
-      this.element.autocomplete({
-        source: $.proxy(this._geocode, this),  
-        focus:  $.proxy(this._focusAddress, this),
-        select: $.proxy(this._selectAddress, this)
-      });
-      
+        this.element.autocomplete($.extend({
+            source: $.proxy(this._geocode, this),
+            focus:  $.proxy(this._focusAddress, this),
+            select: $.proxy(this._selectAddress, this)
+        }), this.options.autocomplete);
+
       this.lat      = $(this.options.elements.lat);
       this.lng      = $(this.options.elements.lng);
       this.street_number = $(this.options.elements.street_number);
@@ -96,13 +97,13 @@
 
       this.gmap = new google.maps.Map(this.mapElement[0], this.options.mapOptions);
       this.gmarker = new google.maps.Marker({
-        position: this.options.mapOptions.center, 
-        map:this.gmap, 
+        position: this.options.mapOptions.center,
+        map:this.gmap,
         draggable: this.options.draggableMarker});
       google.maps.event.addListener(this.gmarker, 'dragend', $.proxy(this._markerMoved, this));
       this.gmarker.setVisible(false);
     },
-    
+
     _updatePosition: function(location) {
       if (this.lat) {
         this.lat.val(location.lat());
@@ -112,7 +113,7 @@
       }
     },
 
-    _addressParts: {street_number: null, route: null, locality: null, 
+    _addressParts: {street_number: null, route: null, locality: null,
                      administrative_area_level_2: null, administrative_area_level_1: null,
                      country: null, postal_code:null, type: null},
 
@@ -125,7 +126,7 @@
           this[addressPart].val(parsedResult[addressPart]);
         }
       }
-    }, 
+    },
 
     _updateAddressPartsViaReverseGeocode: function(location){
       var latLng = new google.maps.LatLng(location.lat(), location.lng());
@@ -156,7 +157,7 @@
 
       return parsed;
     },
-    
+
     _markerMoved: function() {
       this._updatePosition(this.gmarker.getPosition());
 
@@ -164,7 +165,7 @@
         this._updateAddressPartsViaReverseGeocode(this.gmarker.getPosition());
       }
     },
-    
+
     // Autocomplete source method: fill its suggests with google geocoder results
     _geocode: function(request, response) {
         var address = request.term, self = this;
@@ -176,11 +177,11 @@
                 for (var i = 0; i < results.length; i++) {
                     results[i].label =  results[i].formatted_address;
                 };
-            } 
+            }
             response(results);
         })
     },
-    
+
     _findInfo: function(result, type) {
       for (var i = 0; i < result.address_components.length; i++) {
         var component = result.address_components[i];
@@ -190,13 +191,13 @@
       }
       return false;
     },
-    
+
     _focusAddress: function(event, ui) {
       var address = ui.item;
       if (!address) {
         return;
       }
-      
+
       if (this.gmarker) {
         this.gmarker.setPosition(address.geometry.location);
         this.gmarker.setVisible(true);
@@ -207,9 +208,9 @@
       this._updatePosition(address.geometry.location);
 
       this._updateAddressParts(address);
-      
+
     },
-    
+
     _selectAddress: function(event, ui) {
       this.selectedResult = ui.item;
       if (this.options.updateCallback) {
