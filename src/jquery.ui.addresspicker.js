@@ -5,7 +5,6 @@
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://jquery.org/license
  *
- * http://docs.jquery.com/UI/Progressbar
  *
  * Depends:
  *   jquery.ui.core.js
