@@ -12,7 +12,9 @@
 	<script src="../src/jquery.ui.addresspicker.js"></script>
 	<script>
 	$(function() {
-		var addresspicker = $( "#addresspicker" ).addresspicker();
+		var addresspicker = $( "#addresspicker" ).addresspicker({
+      componentsFilter: 'country:FR'
+    });
 		var addresspickerMap = $( "#addresspicker_map" ).addresspicker({
 			regionBias: "fr",
       updateCallback: showCallback,
@@ -27,7 +29,7 @@
 		    administrative_area_level_1: '#administrative_area_level_1',
 		    country:  '#country',
 		    postal_code: '#postal_code',
-        type:    '#type' 
+        type:    '#type'
 		  }
 		});
 
@@ -35,14 +37,14 @@
 		gmarker.setVisible(true);
 		addresspickerMap.addresspicker( "updatePosition");
 
-    $('#reverseGeocode').change(function(){ 
+    $('#reverseGeocode').change(function(){
       $("#addresspicker_map").addresspicker("option", "reverseGeocode", ($(this).val() === 'true'));
     });
 
     function showCallback(geocodeResult, parsedGeocodeResult){
       $('#callback_result').text(JSON.stringify(parsedGeocodeResult, null, 4));
     }
-		
+
 	});
 	</script>
 </head>
@@ -51,7 +53,7 @@
 
 <div class="demo">
   <h1>jquery-addresspicker demo (a jQuery UI widget)</h1>
-  
+
   <h2>Default address picker, only autocomplete.</h2>
   <p>
     Default address picker. It's just a jQuery autocomplete filled by google map geocoder suggestions.<br/>

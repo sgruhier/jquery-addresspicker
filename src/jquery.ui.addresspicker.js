@@ -5,8 +5,6 @@
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://jquery.org/license
  *
- * http://docs.jquery.com/UI/Progressbar
- *
  * Depends:
  *   jquery.ui.core.js
  *   jquery.ui.widget.js
@@ -19,6 +17,7 @@
         appendAddressString: "",
         draggableMarker: true,
         regionBias: null,
+        componentsFilter:'',
         updateCallback: null,
         reverseGeocode: false,
         autocomplete: 'default',
@@ -42,7 +41,7 @@
             type: false
 
         },
-        autocomplete: {}
+        autocomplete: '' // could be autocomplete: "bootstrap" to use bootstrap typeahead autocomplete instead of jQueryUI
     },
 
     marker: function() {
@@ -59,7 +58,7 @@
 
     reloadPosition: function() {
       this.gmarker.setVisible(true);
-      this.gmarker.setPosition(new google.maps.LatLng(this.lat.val(), this.lng.val()));
+      this.gmarker.setPosition(new google.maps.LatLng(this.lat.val, this.lng.val));
       this.gmap.setCenter(this.gmarker.getPosition());
     },
 
@@ -69,7 +68,20 @@
     _mapped: {},
     _create: function() {
       var self = this;
-      this.geocoder = new google.maps.Geocoder();
+      this.geocoder = {
+        geocode: function(options, callback)
+        {
+          jQuery.ajax({
+            url: "http://maps.googleapis.com/maps/api/geocode/json?" + jQuery.param(options) + '&sensor=false',
+            type: "GET",
+            success: function(data) {
+              callback(data.results, data.status);
+            }
+          });
+        }
+        //new google.maps.Geocoder();
+      };
+
       if (this.options.autocomplete === 'bootstrap') {
           this.element.typeahead({
             source: function(query, process) {
@@ -140,8 +152,8 @@
     },
 
     _addressParts: {street_number: null, route: null, locality: null,
-                     administrative_area_level_2: null, administrative_area_level_1: null,
-                     country: null, postal_code:null, type: null},
+                    administrative_area_level_2: null, administrative_area_level_1: null,
+                    country: null, postal_code:null, type: null},
 
     _updateAddressParts: function(geocodeResult){
 
@@ -155,25 +167,23 @@
     },
 
     _updateAddressPartsViaReverseGeocode: function(location){
-      var latLng = new google.maps.LatLng(location.lat(), location.lng());
+      this.geocoder.geocode({'latlng': location.lat() + "," + location.lng()}, $.proxy(function(results, status){
+        if (status == google.maps.GeocoderStatus.OK)
 
-      this.geocoder.geocode({'latLng': latLng}, $.proxy(function(results, status){
-          if (status == google.maps.GeocoderStatus.OK)
+          this._updateAddressParts(results[0]);
+          this.element.val(results[0].formatted_address);
+          this.selectedResult = results[0];
 
-            this._updateAddressParts(results[0]);
-            this.element.val(results[0].formatted_address);
-            this.selectedResult = results[0];
-
-            if (this.options.updateCallback) {
-              this.options.updateCallback(this.selectedResult, this._parseGeocodeResult(this.selectedResult));
-            }
-          }, this));
+          if (this.options.updateCallback) {
+            this.options.updateCallback(this.selectedResult, this._parseGeocodeResult(this.selectedResult));
+          }
+        }, this));
     },
 
     _parseGeocodeResult: function(geocodeResult){
 
-      var parsed = {lat: geocodeResult.geometry.location.lat(),
-        lng: geocodeResult.geometry.location.lng()};
+      var parsed = {lat: geocodeResult.geometry.location.lat,
+        lng: geocodeResult.geometry.location.lng};
 
       for (var addressPart in this._addressParts){
         parsed[addressPart] = this._findInfo(geocodeResult, addressPart);
@@ -196,12 +206,20 @@
     _geocode: function(request, response) {
         var address = request.term, self = this;
         this.geocoder.geocode({
-            'address': address + this.options.appendAddressString,
-            'region': this.options.regionBias
+          'address': address + this.options.appendAddressString,
+          'region': this.options.regionBias,
+          'components': this.options.componentsFilter
         }, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK && results) {
                 for (var i = 0; i < results.length; i++) {
-                    results[i].label =  results[i].formatted_address;
+                  result = results[i]
+                  g = result.geometry
+                  g.location = new google.maps.LatLng(g.location.lat, g.location.lng);
+                  g.viewport = new google.maps.LatLngBounds(
+                    new google.maps.LatLng(g.viewport.southwest.lat, g.viewport.southwest.lng),
+                    new google.maps.LatLng(g.viewport.northeast.lat, g.viewport.northeast.lng)
+                  )
+                  result.label =  results[i].formatted_address;
                 };
             }
             response(results);
@@ -223,11 +241,9 @@
       if (!address) {
         return;
       }
-
       if (this.gmarker) {
         this.gmarker.setPosition(address.geometry.location);
         this.gmarker.setVisible(true);
-
         this.gmap.fitBounds(address.geometry.viewport);
       }
 
