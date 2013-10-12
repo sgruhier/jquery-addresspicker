@@ -1,18 +1,22 @@
-= jquery-addresspicker
+jquery-addresspicker
+====================
 
 jQuery UI widget for selecting an address.
 This widget has been develop for a specific need but feel free to use it or fork the repository
 
-http://xilinus.com/jquery-addresspicker/demos/images/screenshot.png
 
-You can see a live demo here: http://xilinus.com/jquery-addresspicker/demos/index.html
+<img src="http://xilinus.com/jquery-addresspicker/demos/images/screenshot.png"/>
 
-= Features
+You can see a live demo here: [http://xilinus.com/jquery-addresspicker/demos/index.html](http://xilinus.com/jquery-addresspicker/demos/index.html)
+
+Features
+====================
 
 - Autocompletion is maiden with jquery-autcomplete widget and filled by google maps V3 geocoding suggests.
 - Instant display suggestion on a map
 
-= Usage
+Usage
+====================
 
 ```js
 $('input[name="address"]' ).addresspicker();
@@ -56,7 +60,8 @@ $('input[name="address"]' ).addresspicker();
 }
 ```js
 
-= Credits
+Credits
+====================
 
 - Sébastien Gruhier - @sgruhier[http://twitter.com/sgruhier] - (http://xilinus.com - maptimize.com[http://v2.maptimize.com])
 
