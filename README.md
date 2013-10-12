@@ -26,7 +26,8 @@ $('input[name="address"]' ).addresspicker();
   $('input[name="address"]' ).addresspicker({componentsFilter: 'country:FR'});
 ```
 
-= Options (iwth default values)
+Options (with default values)
+====================
 
 ```js
 {
@@ -58,7 +59,7 @@ $('input[name="address"]' ).addresspicker();
   },
   autocomplete: '' // could be autocomplete: "bootstrap" to use bootstrap typeahead autocomplete instead of jQueryUI
 }
-```js
+```
 
 Credits
 ====================
