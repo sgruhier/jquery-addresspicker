@@ -66,3 +66,7 @@ Credits
 
 - Sébastien Gruhier - @sgruhier[http://twitter.com/sgruhier] - (http://xilinus.com - maptimize.com[http://v2.maptimize.com])
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/sgruhier/jquery-addresspicker/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
