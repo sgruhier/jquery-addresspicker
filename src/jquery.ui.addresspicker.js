@@ -17,7 +17,7 @@
             appendAddressString: "",
             draggableMarker: true,
             regionBias: null,
-            componentsFilter: '',
+            componentRestrictions: {},
             updateCallback: null,
             reverseGeocode: false,
             autocomplete: 'default',
@@ -68,18 +68,7 @@
         _mapped: {},
         _create: function () {
             var self = this;
-            this.geocoder = {
-                geocode: function (options, callback) {
-                    jQuery.ajax({
-                        url: "http://maps.googleapis.com/maps/api/geocode/json?" + jQuery.param(options) + '&sensor=false',
-                        type: "GET",
-                        success: function (data) {
-                            callback(data.results, data.status);
-                        }
-                    });
-                }
-                //new google.maps.Geocoder();
-            };
+            this.geocoder = new google.maps.Geocoder();
 
             if (this.options.autocomplete === 'bootstrap') {
                 this.element.typeahead({
@@ -208,18 +197,11 @@
             this.geocoder.geocode({
                 'address': address + this.options.appendAddressString,
                 'region': this.options.regionBias,
-                'components': this.options.componentsFilter
+                'componentRestrictions': this.options.componentRestrictions
             }, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK && results) {
                     for (var i = 0; i < results.length; i++) {
-                        result = results[i]
-                        g = result.geometry
-                        g.location = new google.maps.LatLng(g.location.lat, g.location.lng);
-                        g.viewport = new google.maps.LatLngBounds(
-                            new google.maps.LatLng(g.viewport.southwest.lat, g.viewport.southwest.lng),
-                            new google.maps.LatLng(g.viewport.northeast.lat, g.viewport.northeast.lng)
-                        )
-                        result.label = results[i].formatted_address;
+                        results[i].label = results[i].formatted_address;
                     }
                     ;
                 }

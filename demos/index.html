@@ -13,7 +13,7 @@
     <script>
         $(function () {
             var addresspicker = $("#addresspicker").addresspicker({
-                componentsFilter: 'country:FR'
+                componentRestrictions: {country: 'FR'}
             });
             var addresspickerMap = $("#addresspicker_map").addresspicker({
                 regionBias: "fr",
