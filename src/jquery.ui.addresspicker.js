@@ -20,7 +20,6 @@
             componentRestrictions: {},
             updateCallback: null,
             reverseGeocode: false,
-            autocomplete: 'default',
             mapOptions: {
                 zoom: 5,
                 center: new google.maps.LatLng(46, 2),
@@ -41,7 +40,8 @@
                 type: false
 
             },
-            autocomplete: '' // could be autocomplete: "bootstrap" to use bootstrap typeahead autocomplete instead of jQueryUI
+            autocompleteMode: 'jqueryui', // could be autocompleteMode: "bootstrap" to use bootstrap typeahead autocomplete instead of jQueryUI
+            autocompleteOptions: {}
         },
 
         marker: function () {
@@ -70,8 +70,8 @@
             var self = this;
             this.geocoder = new google.maps.Geocoder();
 
-            if (this.options.autocomplete === 'bootstrap') {
-                this.element.typeahead({
+            if (this.options.autocompleteMode === 'bootstrap') {
+                this.element.typeahead($.extend({
                     source: function (query, process) {
                         self._mapped = {};
                         var response = function (results) {
@@ -92,13 +92,13 @@
                         self._selectAddress(null, ui);
                         return item;
                     }
-                });
+                }, this.options.autocompleteOptions));
             } else {
                 this.element.autocomplete($.extend({
                     source: $.proxy(this._geocode, this),
                     focus: $.proxy(this._focusAddress, this),
                     select: $.proxy(this._selectAddress, this)
-                }), this.options.autocomplete);
+                }, this.options.autocompleteOptions));
             }
 
             this.lat = $(this.options.elements.lat);
