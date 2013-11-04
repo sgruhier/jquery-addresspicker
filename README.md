@@ -56,7 +56,7 @@ Options (with default values)
         postal_code: false,
         type: false
     },
-    autocompleteMode: 'jqueryui', // could be autocompleteMode: "bootstrap" to use bootstrap typeahead autocomplete instead of jQueryUI
+    autocompleteMode: 'jqueryui', //autocompleteMode: "bootstrap" to use bootstrap typeahead autocomplete
     autocompleteOptions: {}
 },
 ```
