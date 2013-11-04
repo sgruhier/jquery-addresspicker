@@ -19,11 +19,11 @@ Usage
 ====================
 
 ```js
-$('input[name="address"]' ).addresspicker();
+$('input[name="address"]').addresspicker();
 ```
 
 ```js
-$('input[name="address"]' ).addresspicker({componentRestrictions: {country: 'FR'});
+$('input[name="address"]').addresspicker({componentRestrictions: {country: 'FR'});
 ```
 
 Options (with default values)
