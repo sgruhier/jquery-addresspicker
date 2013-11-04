@@ -1,118 +1,115 @@
 body {
-  margin:0 10%;
-  color: #333;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 300;
+    margin: 0 10%;
+    color: #333;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
 }
 
 h1 {
-  text-align: center;
-  font-weight:normal;
+    text-align: center;
+    font-weight: normal;
 }
 
 h2 {
-  font-weight:normal;
-  width:100%;
-  float:left;
-  margin: 20px 0  0px 0;
+    font-weight: normal;
+    width: 100%;
+    float: left;
+    margin: 20px 0 0px 0;
 }
 
 code {
-  background-color: ghostWhite;
-  border: 1px solid #DEDEDE;
-  color: #444;
-  padding: 0 3px;
+    background-color: ghostWhite;
+    border: 1px solid #DEDEDE;
+    color: #444;
+    padding: 0 3px;
 }
 
 label {
-  width: 100px;
-  float:left;
-  text-align:right;
-  margin:4px 10px 0 0;
+    width: 100px;
+    float: left;
+    text-align: right;
+    margin: 4px 10px 0 0;
 }
 
-label#geo_label
-{
-  width: auto;
-  float: none;
+label#geo_label {
+    width: auto;
+    float: none;
 }
 
 p {
-  float:left;
-  width: 100%;
+    float: left;
+    width: 100%;
 }
+
 .gist {
-  margin-top: 10px;
-  font-size: 12px;
+    margin-top: 10px;
+    font-size: 12px;
 }
 
 .ui-autocomplete-input, .input input {
-  border: none; 
-  font-size: 14px;
-  width: 300px;
-  height: 24px;
-  margin-bottom: 5px;
-  padding-top: 2px;
+    border: none;
+    font-size: 14px;
+    width: 300px;
+    height: 24px;
+    margin-bottom: 5px;
+    padding-top: 2px;
 }
 
-textarea
-{
-  border-color: lightgray; 
-  font-size: 14px;
-  width: 600px;
-  margin-bottom: 5px;
-  padding-top: 2px;
+textarea {
+    border-color: lightgray;
+    font-size: 14px;
+    width: 600px;
+    margin-bottom: 5px;
+    padding-top: 2px;
 }
 
 .ui-autocomplete-input {
-  border: 1px solid #DDD !important;
-  padding-top: 0px !important;
+    border: 1px solid #DDD !important;
+    padding-top: 0px !important;
 }
 
-.map-wrapper
-{
-  float:left;  
-  margin: 0 10px 0 10px;
+.map-wrapper {
+    float: left;
+    margin: 0 10px 0 10px;
 }
 
 #map {
-  border: 1px solid #DDD; 
-  width:300px;
-  height: 300px;
-  margin: 10px 0 10px 0;
-  -webkit-box-shadow: #AAA 0px 0px 15px;
+    border: 1px solid #DDD;
+    width: 300px;
+    height: 300px;
+    margin: 10px 0 10px 0;
+    -webkit-box-shadow: #AAA 0px 0px 15px;
 }
 
 #legend {
-  font-size: 12px;
-  font-style: italic;
+    font-size: 12px;
+    font-style: italic;
 }
 
 .ui-menu .ui-menu-item a {
-  font-size: 12px;
+    font-size: 12px;
 }
 
 .input {
-  float:left;  
+    float: left;
 }
 
-.input-positioned
-{
-  padding: 35px 0 0 0;
+.input-positioned {
+    padding: 35px 0 0 0;
 }
 
 .clearfix:after {
-	content: ".";
-	display: block;
-	clear: both;
-	visibility: hidden;
-	line-height: 0;
-	height: 0;
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
 }
- 
+
 * html .clearfix {
-	height: 1%;
+    height: 1%;
 }
 

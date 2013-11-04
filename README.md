@@ -19,11 +19,11 @@ Usage
 ====================
 
 ```js
-$('input[name="address"]' ).addresspicker();
+$('input[name="address"]').addresspicker();
 ```
 
 ```js
-  $('input[name="address"]' ).addresspicker({componentsFilter: 'country:FR'});
+$('input[name="address"]').addresspicker({componentRestrictions: {country: 'FR'});
 ```
 
 Options (with default values)
@@ -31,34 +31,34 @@ Options (with default values)
 
 ```js
 {
-  appendAddressString: "",
-  draggableMarker: true,
-  regionBias: null,
-  componentsFilter:'',
-  updateCallback: null,
-  reverseGeocode: false,
-  autocomplete: 'default',
-  mapOptions: {
-      zoom: 5,
-      center: new google.maps.LatLng(46, 2),
-      scrollwheel: false,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-  },
-  elements: {
-      map: false,
-      lat: false,
-      lng: false,
-      street_number: false,
-      route: false,
-      locality: false,
-      administrative_area_level_2: false,
-      administrative_area_level_1: false,
-      country: false,
-      postal_code: false,
-      type: false
-  },
-  autocomplete: '' // could be autocomplete: "bootstrap" to use bootstrap typeahead autocomplete instead of jQueryUI
-}
+    appendAddressString: "",
+    draggableMarker: true,
+    regionBias: null,
+    componentRestrictions: {},
+    updateCallback: null,
+    reverseGeocode: false,
+    mapOptions: {
+        zoom: 5,
+        center: new google.maps.LatLng(46, 2),
+        scrollwheel: false,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    },
+    elements: {
+        map: false,
+        lat: false,
+        lng: false,
+        street_number: false,
+        route: false,
+        locality: false,
+        administrative_area_level_2: false,
+        administrative_area_level_1: false,
+        country: false,
+        postal_code: false,
+        type: false
+    },
+    autocompleteMode: 'jqueryui', //autocompleteMode: "bootstrap" to use bootstrap typeahead autocomplete
+    autocompleteOptions: {}
+},
 ```
 
 Credits
