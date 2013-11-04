@@ -1,105 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>jquery-addresspicker demo (a jQuery UI widget)</title>
-	<link rel="stylesheet" href="themes/base/jquery.ui.all.css">
-	<link rel="stylesheet" href="demo.css">
-	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <meta charset="utf-8">
+    <title>jquery-addresspicker demo (a jQuery UI widget)</title>
+    <link rel="stylesheet" href="themes/base/jquery.ui.all.css">
+    <link rel="stylesheet" href="demo.css">
+    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 
-	<script src="../lib/jquery-1.4.4.min.js"></script>
-	<script src="../lib/jquery-ui-1.8.7.min.js"></script>
-	<script src="../src/jquery.ui.addresspicker.js"></script>
-	<script>
-	$(function() {
-		var addresspicker = $( "#addresspicker" ).addresspicker({
-      componentsFilter: 'country:FR'
-    });
-		var addresspickerMap = $( "#addresspicker_map" ).addresspicker({
-			regionBias: "fr",
-      updateCallback: showCallback,
-		  elements: {
-		    map:      "#map",
-		    lat:      "#lat",
-		    lng:      "#lng",
-		    street_number: '#street_number',
-		    route: '#route',
-		    locality: '#locality',
-		    administrative_area_level_2: '#administrative_area_level_2',
-		    administrative_area_level_1: '#administrative_area_level_1',
-		    country:  '#country',
-		    postal_code: '#postal_code',
-        type:    '#type'
-		  }
-		});
+    <script src="../lib/jquery-1.4.4.min.js"></script>
+    <script src="../lib/jquery-ui-1.8.7.min.js"></script>
+    <script src="../src/jquery.ui.addresspicker.js"></script>
+    <script>
+        $(function () {
+            var addresspicker = $("#addresspicker").addresspicker({
+                componentsFilter: 'country:FR'
+            });
+            var addresspickerMap = $("#addresspicker_map").addresspicker({
+                regionBias: "fr",
+                updateCallback: showCallback,
+                elements: {
+                    map: "#map",
+                    lat: "#lat",
+                    lng: "#lng",
+                    street_number: '#street_number',
+                    route: '#route',
+                    locality: '#locality',
+                    administrative_area_level_2: '#administrative_area_level_2',
+                    administrative_area_level_1: '#administrative_area_level_1',
+                    country: '#country',
+                    postal_code: '#postal_code',
+                    type: '#type'
+                }
+            });
 
-		var gmarker = addresspickerMap.addresspicker( "marker");
-		gmarker.setVisible(true);
-		addresspickerMap.addresspicker( "updatePosition");
+            var gmarker = addresspickerMap.addresspicker("marker");
+            gmarker.setVisible(true);
+            addresspickerMap.addresspicker("updatePosition");
 
-    $('#reverseGeocode').change(function(){
-      $("#addresspicker_map").addresspicker("option", "reverseGeocode", ($(this).val() === 'true'));
-    });
+            $('#reverseGeocode').change(function () {
+                $("#addresspicker_map").addresspicker("option", "reverseGeocode", ($(this).val() === 'true'));
+            });
 
-    function showCallback(geocodeResult, parsedGeocodeResult){
-      $('#callback_result').text(JSON.stringify(parsedGeocodeResult, null, 4));
-    }
+            function showCallback(geocodeResult, parsedGeocodeResult) {
+                $('#callback_result').text(JSON.stringify(parsedGeocodeResult, null, 4));
+            }
 
-	});
-	</script>
+        });
+    </script>
 </head>
 <body>
-  <a href="http://github.com/sgruhier/jquery-addresspicker"><img style="position: absolute; top: 0; left: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_left_green_007200.png" alt="Fork me on GitHub" /></a>
+<a href="http://github.com/sgruhier/jquery-addresspicker"><img style="position: absolute; top: 0; left: 0; border: 0;"
+                                                               src="http://s3.amazonaws.com/github/ribbons/forkme_left_green_007200.png"
+                                                               alt="Fork me on GitHub"/></a>
 
 <div class="demo">
-  <h1>jquery-addresspicker demo (a jQuery UI widget)</h1>
+    <h1>jquery-addresspicker demo (a jQuery UI widget)</h1>
 
-  <h2>Default address picker, only autocomplete.</h2>
-  <p>
-    Default address picker. It's just a jQuery autocomplete filled by google map geocoder suggestions.<br/>
-    Try to enter an address like <em>Saint</em> and you'll see suggests
-  </p>
-	<div class='input'>
-	  <label>Address : </label><input id="addresspicker" />
-  </div>
+    <h2>Default address picker, only autocomplete.</h2>
 
-  <h2>Address picker, with instant display selection on map.</h2>
-  <p>
-    Same but the map on the left displays selected address, even while you navigate in autocomplete suggestions.<br/>
-    Lat and Lng fields are just for information, they should be hidden inputs.<br/><br/>
-    You can even adjust marker position on the map.<br/>
-  </p>
-  <div class='clearfix'>
-  	<div class='input input-positioned'>
-	    <label>Address : </label> <input id="addresspicker_map" />   <br/>
-			<label>Locality: </label> <input id="locality" disabled=disabled> <br/>
-			<label>District: </label> <input id="administrative_area_level_2" disabled=disabled> <br/>
-			<label>State/Province: </label> <input id="administrative_area_level_1" disabled=disabled> <br/>
-			<label>Country:  </label> <input id="country" disabled=disabled> <br/>
-			<label>Postal Code: </label> <input id="postal_code" disabled=disabled> <br/>
-			<label>Lat:      </label> <input id="lat" disabled=disabled> <br/>
-			<label>Lng:      </label> <input id="lng" disabled=disabled> <br/>
-      <label>Type:     </label> <input id="type" disabled=disabled /> <br/>
+    <p>
+        Default address picker. It's just a jQuery autocomplete filled by google map geocoder suggestions.<br/>
+        Try to enter an address like <em>Saint</em> and you'll see suggests
+    </p>
+
+    <div class='input'>
+        <label>Address : </label><input id="addresspicker"/>
     </div>
 
-    <div class='map-wrapper'>
-      <label id="geo_label" for="reverseGeocode">Reverse Geocode after Marker Drag?</label>
-      <select id="reverseGeocode">
-        <option value="false" selected>No</option>
-        <option value="true">Yes</option>
-      </select><br/>
+    <h2>Address picker, with instant display selection on map.</h2>
 
-      <div id="map"></div>
-      <div id="legend">You can drag and drop the marker to the correct location</div>
+    <p>
+        Same but the map on the left displays selected address, even while you navigate in autocomplete
+        suggestions.<br/>
+        Lat and Lng fields are just for information, they should be hidden inputs.<br/><br/>
+        You can even adjust marker position on the map.<br/>
+    </p>
+
+    <div class='clearfix'>
+        <div class='input input-positioned'>
+            <label>Address : </label> <input id="addresspicker_map"/> <br/>
+            <label>Locality: </label> <input id="locality" disabled=disabled> <br/>
+            <label>District: </label> <input id="administrative_area_level_2" disabled=disabled> <br/>
+            <label>State/Province: </label> <input id="administrative_area_level_1" disabled=disabled> <br/>
+            <label>Country: </label> <input id="country" disabled=disabled> <br/>
+            <label>Postal Code: </label> <input id="postal_code" disabled=disabled> <br/>
+            <label>Lat: </label> <input id="lat" disabled=disabled> <br/>
+            <label>Lng: </label> <input id="lng" disabled=disabled> <br/>
+            <label>Type: </label> <input id="type" disabled=disabled/> <br/>
+        </div>
+
+        <div class='map-wrapper'>
+            <label id="geo_label" for="reverseGeocode">Reverse Geocode after Marker Drag?</label>
+            <select id="reverseGeocode">
+                <option value="false" selected>No</option>
+                <option value="true">Yes</option>
+            </select><br/>
+
+            <div id="map"></div>
+            <div id="legend">You can drag and drop the marker to the correct location</div>
+        </div>
     </div>
-  </div>
 
-  <div class='input-positioned'>
-    <label>Callback: </label>
-    <textarea id='callback_result' rows="15"></textarea>
-  </div>
+    <div class='input-positioned'>
+        <label>Callback: </label>
+        <textarea id='callback_result' rows="15"></textarea>
+    </div>
 
-</div><!-- End demo -->
+</div>
+<!-- End demo -->
 
 </body>
 </html>
