@@ -56,12 +56,6 @@
             this._updatePosition(this.gmarker.getPosition());
         },
 
-        reloadPosition: function () {
-            this.gmarker.setVisible(true);
-            this.gmarker.setPosition(new google.maps.LatLng(this.lat.val, this.lng.val));
-            this.gmap.setCenter(this.gmarker.getPosition());
-        },
-
         selected: function () {
             return this.selectedResult;
         },
