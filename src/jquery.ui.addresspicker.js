@@ -168,7 +168,7 @@
 
     _updateAddressPartsViaReverseGeocode: function(location){
       this.geocoder.geocode({'latlng': location.lat() + "," + location.lng()}, $.proxy(function(results, status){
-        if (status == google.maps.GeocoderStatus.OK)
+        if (status == google.maps.GeocoderStatus.OK){
 
           this._updateAddressParts(results[0]);
           this.element.val(results[0].formatted_address);
@@ -177,7 +177,8 @@
           if (this.options.updateCallback) {
             this.options.updateCallback(this.selectedResult, this._parseGeocodeResult(this.selectedResult));
           }
-        }, this));
+        }
+      }, this));
     },
 
     _parseGeocodeResult: function(geocodeResult){
