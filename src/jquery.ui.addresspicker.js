@@ -72,7 +72,7 @@
         geocode: function(options, callback)
         {
           jQuery.ajax({
-            url: "http://maps.googleapis.com/maps/api/geocode/json?" + jQuery.param(options) + '&sensor=false',
+            url: "https://maps.googleapis.com/maps/api/geocode/json?" + jQuery.param(options) + '&sensor=false',
             type: "GET",
             success: function(data) {
               callback(data.results, data.status);
@@ -168,7 +168,7 @@
 
     _updateAddressPartsViaReverseGeocode: function(location){
       this.geocoder.geocode({'latlng': location.lat() + "," + location.lng()}, $.proxy(function(results, status){
-        if (status == google.maps.GeocoderStatus.OK)
+        if (status == google.maps.GeocoderStatus.OK){
 
           this._updateAddressParts(results[0]);
           this.element.val(results[0].formatted_address);
@@ -177,7 +177,8 @@
           if (this.options.updateCallback) {
             this.options.updateCallback(this.selectedResult, this._parseGeocodeResult(this.selectedResult));
           }
-        }, this));
+        }
+      }, this));
     },
 
     _parseGeocodeResult: function(geocodeResult){
