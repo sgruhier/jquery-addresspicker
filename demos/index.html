@@ -19,6 +19,12 @@
     var addresspickerMap = $( "#addresspicker_map" ).addresspicker({
       regionBias: "fr",
       updateCallback: showCallback,
+      mapOptions: {
+        zoom: 4,
+        center: new google.maps.LatLng(46, 2),
+        scrollwheel: false,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      },
       elements: {
         map:      "#map",
         lat:      "#lat",
@@ -45,6 +51,11 @@
     function showCallback(geocodeResult, parsedGeocodeResult){
       $('#callback_result').text(JSON.stringify(parsedGeocodeResult, null, 4));
     }
+    // Update zoom field
+    var map = $("#addresspicker_map").addresspicker("map");
+    google.maps.event.addListener(map, 'idle', function(){
+      $('#zoom').val(map.getZoom());
+    });
 
   });
   </script>
