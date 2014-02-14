@@ -160,8 +160,12 @@
       parsedResult = this._parseGeocodeResult(geocodeResult);
 
       for (addressPart in this._addressParts){
-        if (this[addressPart] && parsedResult[addressPart] !== false){
-          this[addressPart].val(parsedResult[addressPart]);
+        if (this[addressPart]){
+          if (parsedResult[addressPart] !== false){
+            this[addressPart].val(parsedResult[addressPart]);
+          } else {
+            this[addressPart].val('');
+          }
         }
       }
     },
