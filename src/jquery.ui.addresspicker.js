@@ -91,9 +91,9 @@
                     for (var i = 0; i < results.length; i++) {
                         self._mapped[results[i].label] = results[i];
                         labels.push(results[i].label);
-                    };
+                    }
                     process(labels);
-                }
+                };
                 var request = {term: query};
                 self._geocode(request, response);
             },
@@ -225,7 +225,7 @@
                     new google.maps.LatLng(g.viewport.northeast.lat, g.viewport.northeast.lng)
                   )
                   result.label =  results[i].formatted_address;
-                };
+                }
             }
             response(results);
         })
