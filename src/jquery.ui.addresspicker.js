@@ -76,7 +76,10 @@
             type: "GET",
             success: function(data) {
               callback(data.results, data.status);
-            }
+            },
+            error:function(xhr, status, errorThrown) {
+              alert(errorThrown+'\n'+status+'\n'+xhr.statusText);
+            },
           });
         }
         //new google.maps.Geocoder();
