@@ -26,6 +26,12 @@ $('input[name="address"]' ).addresspicker();
   $('input[name="address"]' ).addresspicker({componentsFilter: 'country:FR'});
 ```
 
+Support for IE8/9
+====================
+You will need to use this in order to make the plugin work with IE8/9
+https://github.com/MoonScript/jQuery-ajaxTransport-XDomainRequest
+
+
 Options (with default values)
 ====================
 
