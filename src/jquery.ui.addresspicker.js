@@ -34,6 +34,7 @@
             street_number: false,
             route: false,
             locality: false,
+            sublocality: false,
             administrative_area_level_2: false,
             administrative_area_level_1: false,
             country: false,
@@ -117,6 +118,7 @@
       this.street_number = $(this.options.elements.street_number);
       this.route = $(this.options.elements.route);
       this.locality = $(this.options.elements.locality);
+      this.sublocality = $(this.options.elements.sublocality);
       this.administrative_area_level_2 = $(this.options.elements.administrative_area_level_2);
       this.administrative_area_level_1 = $(this.options.elements.administrative_area_level_1);
       this.country  = $(this.options.elements.country);
@@ -151,7 +153,7 @@
       }
     },
 
-    _addressParts: {street_number: null, route: null, locality: null,
+    _addressParts: {street_number: null, route: null, locality: null, sublocality: null,
                     administrative_area_level_2: null, administrative_area_level_1: null,
                     country: null, postal_code:null, type: null},
 
