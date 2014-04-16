@@ -1,6 +1,11 @@
 jquery-addresspicker
 ====================
 
+IMPORTANT:
+You should check out the new version based on typeahead https://github.com/sgruhier/typeahead-addresspicker. This version won't be too much updated now
+Thanks
+
+
 jQuery UI widget for selecting an address.
 This widget has been develop for a specific need but feel free to use it or fork the repository
 
