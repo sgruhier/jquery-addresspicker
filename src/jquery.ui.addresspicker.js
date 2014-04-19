@@ -21,6 +21,7 @@
         updateCallback: null,
         reverseGeocode: false,
         autocomplete: 'default',
+        language: '',
         mapOptions: {
             zoom: 5,
             center: new google.maps.LatLng(46, 2),
@@ -213,6 +214,7 @@
     _geocode: function(request, response) {
         var address = request.term, self = this;
         this.geocoder.geocode({
+          'language': this.options.language,
           'address': address + this.options.appendAddressString,
           'region': this.options.regionBias,
           'components': this.options.componentsFilter
