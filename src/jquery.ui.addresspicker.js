@@ -17,6 +17,7 @@
         appendAddressString: "",
         draggableMarker: true,
         regionBias: null,
+        bounds: '',
         componentsFilter:'',
         updateCallback: null,
         reverseGeocode: false,
@@ -217,6 +218,7 @@
           'language': this.options.language,
           'address': address + this.options.appendAddressString,
           'region': this.options.regionBias,
+          'bounds': this.options.bounds,
           'components': this.options.componentsFilter
         }, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK && results) {
