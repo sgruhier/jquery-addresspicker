@@ -45,6 +45,7 @@ Options (with default values)
   appendAddressString: "",
   draggableMarker: true,
   regionBias: null,
+  bounds: '',
   componentsFilter:'',
   updateCallback: null,
   reverseGeocode: false,
