@@ -191,8 +191,7 @@
 
     _parseGeocodeResult: function(geocodeResult){
 
-      var parsed = {lat: geocodeResult.geometry.location.lat,
-        lng: geocodeResult.geometry.location.lng};
+      var parsed = this._parseLatAndLng(geocodeResult.geometry.location);
 
       for (var addressPart in this._addressParts){
         parsed[addressPart] = this._findInfo(geocodeResult, addressPart);
@@ -201,6 +200,20 @@
       parsed.type = geocodeResult.types[0];
 
       return parsed;
+    },
+
+    _parseLatAndLng: function(location){
+      var longitude, latitude;
+
+      if(typeof(location.lat) === 'function'){
+        latitude =  location.lat();
+        longitude = location.lng();
+      } else {
+        latitude = location.lat;
+        longitude = location.lng;
+      }
+
+      return { lat: latitude, lng: longitude };
     },
 
     _markerMoved: function() {
