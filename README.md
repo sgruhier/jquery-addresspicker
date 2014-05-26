@@ -63,6 +63,7 @@ Options (with default values)
       street_number: false,
       route: false,
       locality: false,
+      administrative_area_level_3: false,
       administrative_area_level_2: false,
       administrative_area_level_1: false,
       country: false,
