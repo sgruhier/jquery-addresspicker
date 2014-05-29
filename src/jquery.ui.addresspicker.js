@@ -66,6 +66,10 @@
       this.gmap.setCenter(this.gmarker.getPosition());
     },
 
+    resize: function() {
+      google.maps.event.trigger(this.gmap, 'resize')
+    },
+
     selected: function() {
       return this.selectedResult;
     },
