@@ -49,7 +49,7 @@ Options (with default values)
   componentsFilter:'',
   updateCallback: null,
   reverseGeocode: false,
-  autocomplete: 'default',
+  autocomplete: 'default', // could be autocomplete: "bootstrap" to use bootstrap typeahead autocomplete instead of jQueryUI
   mapOptions: {
       zoom: 5,
       center: new google.maps.LatLng(46, 2),
@@ -69,8 +69,7 @@ Options (with default values)
       country: false,
       postal_code: false,
       type: false
-  },
-  autocomplete: '' // could be autocomplete: "bootstrap" to use bootstrap typeahead autocomplete instead of jQueryUI
+  }
 }
 ```
 
